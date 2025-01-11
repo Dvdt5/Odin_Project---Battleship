@@ -17,11 +17,15 @@ export class DOMHandler {
 
         const shipInfoText = document.createElement("h2");
         shipInfoText.id = "ship-info-text";
-        shipInfoText.textContent = "Place Your Patrol Boat";
+        shipInfoText.textContent = "Place Your Patrol Boat ";
 
         const layoutBoard = document.createElement("div");
         layoutBoard.id = "input-board";
         layoutBoard.classList.add("board");
+
+        const rotateShipBtn = document.createElement("i");
+        rotateShipBtn.classList.add("fa");
+        rotateShipBtn.classList.add("fa-repeat");
 
         for(let i = 0; i < 100; i++){
             const boardCell = document.createElement("div");
@@ -30,6 +34,7 @@ export class DOMHandler {
             layoutBoard.appendChild(boardCell);
         }
 
+        shipInfoText.appendChild(rotateShipBtn);
         layoutPage.appendChild(shipInfoText);
         layoutPage.appendChild(layoutBoard);
 

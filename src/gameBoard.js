@@ -25,17 +25,24 @@ export class GameBoard {
             }
             board.push(row);
         }
+        this.board = board;
         return board;
     }
 
     addShip(name, xCord, yCord){
         const ship = this.findShipByName(name);
+
+        if (this.isIncorrectPlacement(ship, xCord, yCord)){
+            return;
+        }
+
         if (ship.isVertical) {
             for (let i=0; i < ship.size;i++){
                 this.board[yCord + i][xCord] = 1;
             }    
         }
         else {
+            
             for (let i=0; i < ship.size;i++){
                 this.board[yCord][xCord +i ] = 1;
             }
@@ -53,5 +60,26 @@ export class GameBoard {
 
     findShipByName(name){
         return this.ships.filter((ship)=> ship.name == name)[0];
+    }
+
+    isIncorrectPlacement(ship, xCord, yCord){
+        if (ship.isVertical) {
+            if (yCord + ship.size > 10){
+                return true;
+            }
+            for (let i=0; i < ship.size;i++){
+
+                if (this.board[yCord + i][xCord] == 1) return true;
+            }    
+        }
+        else {
+            if (xCord + ship.size > 10){
+                return true;
+            }
+            for (let i=0; i < ship.size;i++){
+                if (this.board[yCord][xCord + i] == 1) return true;
+            }
+        }
+        return false;
     }
 }

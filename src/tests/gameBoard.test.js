@@ -18,6 +18,8 @@ test("Create New Board", ()=> {
 })
 
 test("Add ship to board", ()=> {
+
+    gameBoard.newBoard()
     gameBoard.addShip("Destroyer", 2, 3)
     expect(gameBoard.board).toStrictEqual([ [0,0,0,0,0,0,0,0,0,0],
                                             [0,0,0,0,0,0,0,0,0,0],
@@ -79,5 +81,37 @@ test("Add ship to board", ()=> {
                                             [0,0,0,0,0,0,0,0,0,0],
                                             [0,0,0,0,0,1,1,1,1,1]
                                           ]);
+})
+
+test("Ignore incorrect ship placement", ()=>{
+
+    gameBoard.newBoard()
+    gameBoard.addShip("Carrier", 7, 0)
+    expect(gameBoard.board).toStrictEqual([ [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0]
+                                         ]);
+  
+    gameBoard.addShip("Carrier", 5, 5)
+    gameBoard.rotateShip("BattleShip")
+    gameBoard.addShip("BattleShip", 6, 3)
+    expect(gameBoard.board).toStrictEqual([ [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,1,1,1,1,1],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0],
+                                            [0,0,0,0,0,0,0,0,0,0]
+                                         ]);
 })
 

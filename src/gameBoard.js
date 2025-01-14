@@ -7,11 +7,11 @@ export class GameBoard {
     constructor (){
         this.board = this.newBoard();
         this.ships = [
-            new Ship("Destroyer", 2),
-            new Ship("Submarine", 3),
-            new Ship("Cruiser", 3),
-            new Ship("BattleShip", 4),
-            new Ship("Carrier", 5)
+            new Ship("Destroyer", 2, 1),
+            new Ship("Submarine", 3, 2),
+            new Ship("Cruiser", 3, 3),
+            new Ship("BattleShip", 4, 4),
+            new Ship("Carrier", 5, 5)
         ];
     }
 
@@ -38,16 +38,31 @@ export class GameBoard {
 
         if (ship.isVertical) {
             for (let i=0; i < ship.size;i++){
-                this.board[yCord + i][xCord] = 1;
+                this.board[yCord + i][xCord] = ship.id;
             }    
         }
         else {
             
             for (let i=0; i < ship.size;i++){
-                this.board[yCord][xCord +i ] = 1;
+                this.board[yCord][xCord +i ] = ship.id;
             }
         }
         
+    }
+
+    recieveAttack(xCord, yCord){
+        if (this.isBlank(xCord, yCord)){
+            this.board[yCord][xCord] = "O";
+        }
+        else {
+            const ship = this.findShipById(this.board[yCord][xCord]);
+            ship.hit();
+            this.board[yCord][xCord] = "X";
+        }
+    }
+    
+    isBlank(xCord,yCord){
+        return this.board[yCord][xCord] == 0 ? true : false;
     }
 
     rotateShip(name){
@@ -62,6 +77,10 @@ export class GameBoard {
         return this.ships.filter((ship)=> ship.name == name)[0];
     }
 
+    findShipById(id){
+        return this.ships.filter((ship)=> ship.id == id)[0];
+    }
+
     isIncorrectPlacement(ship, xCord, yCord){
         if (ship.isVertical) {
             if (yCord + ship.size > 10){
@@ -69,7 +88,7 @@ export class GameBoard {
             }
             for (let i=0; i < ship.size;i++){
 
-                if (this.board[yCord + i][xCord] == 1) return true;
+                if (this.board[yCord + i][xCord] != 0) return true;
             }    
         }
         else {
@@ -77,7 +96,7 @@ export class GameBoard {
                 return true;
             }
             for (let i=0; i < ship.size;i++){
-                if (this.board[yCord][xCord + i] == 1) return true;
+                if (this.board[yCord][xCord + i] != 0) return true;
             }
         }
         return false;

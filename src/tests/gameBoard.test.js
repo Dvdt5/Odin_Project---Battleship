@@ -132,6 +132,7 @@ test("attack the coords", ()=>{
                                           [0,0,0,0,0,0,0,0,0,0]
                                        ]);
   gameBoard.recieveAttack(4, 2)
+  console.log(gameBoard.missedTiles);
   expect(gameBoard.board).toStrictEqual([ [0,0,0,0,5,"X","X",5,5,0],
                                           [0,0,0,0,0,0,0,0,0,0],
                                           [0,0,0,0,"O",0,0,0,0,0],

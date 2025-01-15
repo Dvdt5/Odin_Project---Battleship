@@ -13,6 +13,7 @@ export class GameBoard {
             new Ship("BattleShip", 4, 4),
             new Ship("Carrier", 5, 5)
         ];
+        this.missedTiles = [];
     }
 
 
@@ -53,15 +54,20 @@ export class GameBoard {
     recieveAttack(xCord, yCord){
         if (this.isBlank(xCord, yCord)){
             this.board[yCord][xCord] = "O";
+            this.missedTiles.push([xCord, yCord]); 
         }
         else {
             const ship = this.findShipById(this.board[yCord][xCord]);
             ship.hit();
             this.board[yCord][xCord] = "X";
+            if (ship.sunken){
+                
+            }
         }
     }
     
     isBlank(xCord,yCord){
+        
         return this.board[yCord][xCord] == 0 ? true : false;
     }
 

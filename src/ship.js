@@ -9,6 +9,7 @@ export class Ship {
         this.hitTaken = 0;
         this.sunken = false;
         this.isVertical = false;
+        this.isPlaced = false;
     }
 
     hit(){
@@ -19,6 +20,7 @@ export class Ship {
     isSunk(){
         if (this.hitTaken == this.size){
             this.sunken = true;
+
         }
     }
 }

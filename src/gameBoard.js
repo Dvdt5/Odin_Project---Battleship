@@ -1,6 +1,7 @@
 import { Ship } from "./ship";
+import { DOMHandler } from "./DOMHandler";
 
-
+const domHandler = new DOMHandler;
 
 export class GameBoard {
 
@@ -48,7 +49,7 @@ export class GameBoard {
                 this.board[yCord][xCord +i ] = ship.id;
             }
         }
-        
+        ship.isPlaced = true;
     }
 
     recieveAttack(xCord, yCord){
@@ -61,7 +62,7 @@ export class GameBoard {
             ship.hit();
             this.board[yCord][xCord] = "X";
             if (ship.sunken){
-                
+                domHandler.shipSunkMessage(ship.name);
             }
         }
     }
@@ -107,4 +108,6 @@ export class GameBoard {
         }
         return false;
     }
+
+    
 }

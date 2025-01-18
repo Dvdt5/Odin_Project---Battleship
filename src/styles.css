@@ -141,6 +141,36 @@ body {
     pointer-events: none;
 }
 
-.ship {
+div .ship {
     background-color: blue;
+}
+
+.hoveredCell {
+    background-color: greenyellow;
+    
+}
+
+#example-ship {
+    position: fixed;
+    left: 75vw;
+    top: 40vh;
+    background-color: blue;
+    
+    
+    display: flex;
+    
+}
+
+.row {
+    flex-direction: row;
+}
+.column {
+    flex-direction: column;
+}
+
+#example-ship div {
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 3vw;
+    height: 3vw;
 }

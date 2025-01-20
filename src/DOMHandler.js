@@ -1,4 +1,4 @@
-import { player } from "./index";
+import { player, computer } from "./index";
 import { GameController } from "./gameController";
 
 const gameController = new GameController;
@@ -93,6 +93,23 @@ export class DOMHandler {
 
         const layoutPage = document.createElement("div");
         layoutPage.id = "player-input-page";
+
+
+        const confirmBoardBtn = document.createElement("div");
+        confirmBoardBtn.id = "confirm-board-btn";
+        confirmBoardBtn.textContent = "Confirm Layout";
+        confirmBoardBtn.addEventListener("click",()=> this.refreshBoards(player.gameBoard.board, computer.gameBoard.board));
+
+
+        const resetBoardBtn = document.createElement("div");
+        resetBoardBtn.id = "reset-board-btn";
+        resetBoardBtn.textContent = "Reset Layout";
+        resetBoardBtn.addEventListener("click", ()=>{
+            player.gameBoard.ships.forEach(ship => ship.isPlaced = false);
+            document.getElementById("reset-board-btn").remove();
+            document.getElementById("confirm-board-btn").remove();
+            this.openShipLayoutBoard(player.gameBoard.newBoard());
+        })
         
         
 
@@ -109,9 +126,11 @@ export class DOMHandler {
         layoutPage.appendChild(boardToConfirm);
 
         main.appendChild(layoutPage)
+        main.appendChild(confirmBoardBtn)
+        main.appendChild(resetBoardBtn)
     }
 
-    renderGameBoard(board){
+    renderComputerBoard(board){
         const layoutBoard = document.createElement("div");
         layoutBoard.id = "input-board";
         layoutBoard.classList.add("board");
@@ -121,8 +140,8 @@ export class DOMHandler {
                 const boardCell = document.createElement("div");
                 boardCell.classList.add("cell");
                 boardCell.addEventListener("click", ()=> {
-                    player.gameBoard.recieveAttack(col,row);
-                    this.openShipLayoutBoard(player.gameBoard.board);
+                    computer.gameBoard.recieveAttack(col,row);
+                    this.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
                     }
                 );
 
@@ -145,6 +164,60 @@ export class DOMHandler {
         }
 
         return layoutBoard;
+    }
+
+    renderPlayerBoard(board){
+        const layoutBoard = document.createElement("div");
+        layoutBoard.id = "input-board";
+        layoutBoard.classList.add("board");
+
+        for (let row = 0; row < 10; row++){
+            for (let col = 0; col < 10; col++){
+                const boardCell = document.createElement("div");
+                boardCell.classList.add("cell");
+
+                if (board[row][col] === 0){
+                    boardCell.classList.add("undiscovered");
+                }
+                else if (board[row][col] === "X"){
+                    boardCell.classList.add("hit");
+                }
+                else if (board[row][col] === "O"){
+                    boardCell.classList.add("missed");
+                }
+                else {
+                    boardCell.classList.add("ship");
+                    
+                }
+
+                layoutBoard.appendChild(boardCell);
+            }
+        }
+
+        return layoutBoard;
+    }
+
+
+
+    refreshBoards(playerBoard, computerBoard){
+        if (document.querySelector("#gameplay-page")) {
+            document.getElementById("gameplay-page").remove();
+        }
+        document.getElementById("content").innerHTML = "";
+        const main = document.getElementById("content");
+
+        const playerSide = document.createElement("div");
+        const playerInfoText = document.createElement("p");
+        playerInfoText.textContent = "Hello"
+        playerSide.appendChild(playerInfoText);
+        playerSide.appendChild(this.renderPlayerBoard(playerBoard));
+        main.appendChild(playerSide);
+
+        const computerSide = document.createElement("div");
+        computerSide.appendChild(this.renderComputerBoard(computerBoard));
+        main.appendChild(computerSide);
+
+        
     }
 
     placeShipsBoard(board){

@@ -84,6 +84,42 @@ body {
     color: rgb(0, 0, 107);
 }
 
+#confirm-board-btn {
+    position: absolute;
+    left: 10vw;
+    top: 10vh;
+
+    padding: 16px;
+    cursor: pointer;
+    font-size: 24px;
+
+    margin-top: 10vh;
+
+    background-color: white;
+    border: black 5px solid;
+}#confirm-board-btn:hover{
+    border-color: rgb(68, 68, 68);
+    color: rgb(0, 0, 107);
+}
+
+#reset-board-btn {
+    position: absolute;
+    left: 10vw;
+    top: 20vh;
+
+    padding: 16px;
+    cursor: pointer;
+    font-size: 24px;
+
+    margin-top: 10vh;
+
+    background-color: white;
+    border: black 5px solid;
+}#reset-board-btn:hover{
+    border-color: rgb(68, 68, 68);
+    color: rgb(0, 0, 107);
+}
+
 /* Buttons End*/
 
 

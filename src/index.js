@@ -4,9 +4,7 @@ import "./styles.css";
 
 const domHandler = new DOMHandler();
 export const player = new Player("Player");
-
-
-const computer = new Player("Computer");
+export const computer = new Player("Computer");
 
 const startGameBtn = document.getElementById("start-game-btn");
 

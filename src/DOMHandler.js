@@ -1,5 +1,6 @@
 import { player, computer } from "./index";
 import { GameController } from "./gameController";
+import { generateLayout } from "./computerLayoutGenerator";
 
 const gameController = new GameController;
 
@@ -98,7 +99,10 @@ export class DOMHandler {
         const confirmBoardBtn = document.createElement("div");
         confirmBoardBtn.id = "confirm-board-btn";
         confirmBoardBtn.textContent = "Confirm Layout";
-        confirmBoardBtn.addEventListener("click",()=> this.refreshBoards(player.gameBoard.board, computer.gameBoard.board));
+        confirmBoardBtn.addEventListener("click",()=>{
+            generateLayout();
+            this.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
+        })
 
 
         const resetBoardBtn = document.createElement("div");

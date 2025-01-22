@@ -28,7 +28,7 @@ body {
     height: calc(85vh - 32px);
     padding: 16px;
 
-    background-color: rgb(213, 226, 255);
+    background-color: rgb(255, 244, 244);
 
     display: flex;
     gap: 36px;
@@ -181,6 +181,25 @@ div .ship {
     background-color: blue;
 }
 
+div .destroyer {
+    background-color: blue;
+}
+div .submarine {
+    background-color: yellow;
+}
+div .cruiser {
+    background-color: yellowgreen;
+}
+div .battleship {
+    background-color: cornflowerblue;
+}
+div .carrier {
+    background-color: rebeccapurple;
+}
+
+
+
+
 .hoveredCell {
     background-color: greenyellow;
     
@@ -190,7 +209,6 @@ div .ship {
     position: fixed;
     left: 75vw;
     top: 40vh;
-    background-color: blue;
     
     
     display: flex;

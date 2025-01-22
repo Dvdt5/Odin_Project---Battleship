@@ -31,6 +31,23 @@ export class DOMHandler {
         
         const exampleShip = document.createElement("div");
         exampleShip.id = "example-ship";
+
+        if (currShip.id === 1) {
+            exampleShip.style.backgroundColor = "blue";
+        }
+        else if (currShip.id === 2) {
+            exampleShip.style.backgroundColor = "yellow";
+        }
+        else if (currShip.id === 3) {
+            exampleShip.style.backgroundColor = "yellowgreen";
+        }
+        else if (currShip.id === 4) {
+            exampleShip.style.backgroundColor = "cornflowerblue";
+        }
+        else if (currShip.id === 5) {
+            exampleShip.style.backgroundColor = "rebeccapurple"; 
+        }
+
         if (currShip.isVertical){
             exampleShip.classList.add("column");
             exampleShip.classList.remove("row");
@@ -101,7 +118,7 @@ export class DOMHandler {
         confirmBoardBtn.textContent = "Confirm Layout";
         confirmBoardBtn.addEventListener("click",()=>{
             generateLayout();
-            this.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
+            this.gameplayPage(player.gameBoard.board, computer.gameBoard.board);
         })
 
 
@@ -136,7 +153,7 @@ export class DOMHandler {
 
     renderComputerBoard(board){
         const layoutBoard = document.createElement("div");
-        layoutBoard.id = "input-board";
+        layoutBoard.id = "computer-input-board";
         layoutBoard.classList.add("board");
 
         for (let row = 0; row < 10; row++){
@@ -158,10 +175,7 @@ export class DOMHandler {
                 else if (board[row][col] === "O"){
                     boardCell.classList.add("missed");
                 }
-                else {
-                    boardCell.classList.add("ship");
-                    
-                }
+                
 
                 layoutBoard.appendChild(boardCell);
             }
@@ -172,7 +186,7 @@ export class DOMHandler {
 
     renderPlayerBoard(board){
         const layoutBoard = document.createElement("div");
-        layoutBoard.id = "input-board";
+        layoutBoard.id = "player-status-board";
         layoutBoard.classList.add("board");
 
         for (let row = 0; row < 10; row++){
@@ -189,9 +203,25 @@ export class DOMHandler {
                 else if (board[row][col] === "O"){
                     boardCell.classList.add("missed");
                 }
-                else {
+                else if (board[row][col] === 1) {
                     boardCell.classList.add("ship");
-                    
+                    boardCell.classList.add("destroyer");
+                }
+                else if (board[row][col] === 2) {
+                    boardCell.classList.add("ship");
+                    boardCell.classList.add("submarine");
+                }
+                else if (board[row][col] === 3) {
+                    boardCell.classList.add("ship");
+                    boardCell.classList.add("cruiser");
+                }
+                else if (board[row][col] === 4) {
+                    boardCell.classList.add("ship");
+                    boardCell.classList.add("battleship");
+                }
+                else if (board[row][col] === 5) {
+                    boardCell.classList.add("ship");
+                    boardCell.classList.add("carrier");
                 }
 
                 layoutBoard.appendChild(boardCell);
@@ -201,9 +231,19 @@ export class DOMHandler {
         return layoutBoard;
     }
 
-
-
     refreshBoards(playerBoard, computerBoard){
+        if (document.querySelector("#player-status-board")) {
+            document.getElementById("player-status-board").remove();
+        }
+        if (document.querySelector("#computer-input-board")) {
+            document.getElementById("computer-input-board").remove();
+        }
+
+        document.getElementById("player-side").appendChild(this.renderPlayerBoard(playerBoard));
+        document.getElementById("computer-side").appendChild(this.renderComputerBoard(computerBoard));
+    }
+
+    gameplayPage(playerBoard, computerBoard){
         if (document.querySelector("#gameplay-page")) {
             document.getElementById("gameplay-page").remove();
         }
@@ -211,13 +251,15 @@ export class DOMHandler {
         const main = document.getElementById("content");
 
         const playerSide = document.createElement("div");
-        const playerInfoText = document.createElement("p");
+        playerSide.id = "player-side";
+        const playerInfoText = document.createElement("h2");
         playerInfoText.textContent = "Hello"
         playerSide.appendChild(playerInfoText);
         playerSide.appendChild(this.renderPlayerBoard(playerBoard));
         main.appendChild(playerSide);
 
         const computerSide = document.createElement("div");
+        computerSide.id = "computer-side";
         computerSide.appendChild(this.renderComputerBoard(computerBoard));
         main.appendChild(computerSide);
 
@@ -251,16 +293,27 @@ export class DOMHandler {
                 if (board[row][col] === 0){
                     boardCell.classList.add("undiscovered");
                 }
-                else if (board[row][col] === "X"){
-                    boardCell.classList.add("hit");
-                }
-                else if (board[row][col] === "O"){
-                    boardCell.classList.add("missed");
-                }
-                else {
+                else if (board[row][col] === 1) {
                     boardCell.classList.add("ship");
-                    
+                    boardCell.classList.add("destroyer");
                 }
+                else if (board[row][col] === 2) {
+                    boardCell.classList.add("ship");
+                    boardCell.classList.add("submarine");
+                }
+                else if (board[row][col] === 3) {
+                    boardCell.classList.add("ship");
+                    boardCell.classList.add("cruiser");
+                }
+                else if (board[row][col] === 4) {
+                    boardCell.classList.add("ship");
+                    boardCell.classList.add("battleship");
+                }
+                else if (board[row][col] === 5) {
+                    boardCell.classList.add("ship");
+                    boardCell.classList.add("carrier");
+                }
+
 
                 layoutBoard.appendChild(boardCell);
             }

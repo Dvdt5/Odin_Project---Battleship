@@ -253,13 +253,18 @@ export class DOMHandler {
         const playerSide = document.createElement("div");
         playerSide.id = "player-side";
         const playerInfoText = document.createElement("h2");
-        playerInfoText.textContent = "Hello"
+        playerInfoText.id = "player-side-text";
+        playerInfoText.textContent = "Players Board"
         playerSide.appendChild(playerInfoText);
         playerSide.appendChild(this.renderPlayerBoard(playerBoard));
         main.appendChild(playerSide);
 
         const computerSide = document.createElement("div");
         computerSide.id = "computer-side";
+        const computerInfoText = document.createElement("h2");
+        computerInfoText.id = "computer-side-text";
+        computerInfoText.textContent = "Computers Board"
+        computerSide.appendChild(computerInfoText);
         computerSide.appendChild(this.renderComputerBoard(computerBoard));
         main.appendChild(computerSide);
 
@@ -322,9 +327,47 @@ export class DOMHandler {
         return layoutBoard;
     }
 
-    shipSunkMessage(name){
-        const text = document.getElementById("info-text");
-        text.textContent = `${name} has sunk!`;
+    shipSunkMessage(name, playerName){
+        let text = "";
+        let message = `${name} has Sunk!`;
+
+        if (playerName === "Player"){
+            text = document.getElementById("player-side-text");
+        } else {
+            text = document.getElementById("computer-side-text");
+        }
+
+        text.classList.add("animate");
+        text.classList.add("pop");
+        setTimeout(()=>{
+            text.classList.remove("animate");
+            text.classList.remove("pop");
+        },200);
+        text.textContent = message;
+    }
+    shipHitMessage(playerName, isHit){
+        let text = "";
+        let message = "";
+
+        if (isHit){
+            message = "A Ship got Hit!";
+        } else {
+            message = "Its a Miss!";
+        }
+
+        if (playerName === "Player"){
+            text = document.getElementById("player-side-text");
+        } else {
+            text = document.getElementById("computer-side-text");
+        }
+
+        text.classList.add("animate");
+        text.classList.add("pop");
+        setTimeout(()=>{
+            text.classList.remove("animate");
+            text.classList.remove("pop");
+        },200);
+        text.textContent = message;
     }
 
 }

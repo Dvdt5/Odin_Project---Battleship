@@ -5,7 +5,8 @@ const domHandler = new DOMHandler;
 
 export class GameBoard {
 
-    constructor (){
+    constructor (owner){
+        this.owner = owner;
         this.board = this.newBoard();
         this.ships = [
             new Ship("Destroyer", 2, 1),
@@ -55,14 +56,17 @@ export class GameBoard {
     recieveAttack(xCord, yCord){
         if (this.isBlank(xCord, yCord)){
             this.board[yCord][xCord] = "O";
-            this.missedTiles.push([xCord, yCord]); 
+            this.missedTiles.push([xCord, yCord]);
+            domHandler.shipHitMessage(this.owner, false);
         }
         else {
             const ship = this.findShipById(this.board[yCord][xCord]);
             ship.hit();
             this.board[yCord][xCord] = "X";
             if (ship.sunken){
-                domHandler.shipSunkMessage(ship.name);
+                domHandler.shipSunkMessage(ship.name, this.owner);
+            } else {
+                domHandler.shipHitMessage(this.owner, true);
             }
         }
     }

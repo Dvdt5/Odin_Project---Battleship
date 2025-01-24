@@ -1,6 +1,8 @@
 import { Ship } from "./ship";
 import { DOMHandler } from "./DOMHandler";
+import { GameController } from "./gameController";
 
+const gameController = new GameController;
 const domHandler = new DOMHandler;
 
 export class GameBoard {
@@ -58,6 +60,7 @@ export class GameBoard {
             this.board[yCord][xCord] = "O";
             this.missedTiles.push([xCord, yCord]);
             domHandler.shipHitMessage(this.owner, false);
+            gameController.turnPass();
         }
         else {
             const ship = this.findShipById(this.board[yCord][xCord]);

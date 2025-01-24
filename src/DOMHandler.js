@@ -161,8 +161,12 @@ export class DOMHandler {
                 const boardCell = document.createElement("div");
                 boardCell.classList.add("cell");
                 boardCell.addEventListener("click", ()=> {
-                    computer.gameBoard.recieveAttack(col,row);
-                    this.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
+                    if (gameController.currentTurn === "Player"){
+                        computer.gameBoard.recieveAttack(col,row);
+                        this.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
+                    } else {
+                        return;
+                    }
                     }
                 );
 

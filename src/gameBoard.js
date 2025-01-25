@@ -1,6 +1,7 @@
 import { Ship } from "./ship";
 import { DOMHandler } from "./DOMHandler";
 import { GameController } from "./gameController";
+import { player , computer } from "./index";
 
 const gameController = new GameController;
 const domHandler = new DOMHandler;
@@ -71,6 +72,11 @@ export class GameBoard {
             } else {
                 domHandler.shipHitMessage(this.owner, true);
             }
+            setTimeout(()=>{
+                gameController.turnPlay();
+                domHandler.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
+            }, 1000)
+            
         }
     }
     

@@ -10,9 +10,12 @@ export class GameController {
     turnPass(){
         if (this.currentTurn === "Player"){
             this.currentTurn = "Computer";
-            
+            document.getElementById("player-side-text").style.borderLeft = "black 5px solid";
+            document.getElementById("computer-side-text").style.borderLeft = "none";
         } else {
             this.currentTurn = "Player";
+            document.getElementById("computer-side-text").style.borderLeft = "black 5px solid";
+            document.getElementById("player-side-text").style.borderLeft = "none";
         }
         this.turnPlay();
     }
@@ -35,7 +38,7 @@ export class GameController {
             }
             player.gameBoard.recieveAttack(xCord,yCord);
         
-            this.turnPlay();
+            
 
         } 
         

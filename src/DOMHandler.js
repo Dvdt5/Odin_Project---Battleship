@@ -163,7 +163,13 @@ export class DOMHandler {
                 boardCell.addEventListener("click", ()=> {
                     if (gameController.currentTurn === "Player"){
                         computer.gameBoard.recieveAttack(col,row);
-                        this.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
+                        
+                        if (computer.gameBoard.ships.every(ship => ship.sunken == true)){
+                            
+                            this.gameFinishedScreen("Player");
+                        }else {
+                            this.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
+                        }
                     } else {
                         return;
                     }
@@ -329,6 +335,34 @@ export class DOMHandler {
         }
 
         return layoutBoard;
+    }
+
+    gameFinishedScreen(winnerName){
+        if (document.querySelector("#gameplay-page")) {
+            document.getElementById("gameplay-page").remove();
+        }
+        document.getElementById("content").innerHTML = "";
+        const main = document.getElementById("content");
+
+        const container = document.createElement("div");
+
+        const winnerMessage = document.createElement("h2");
+        winnerMessage.textContent = `${winnerName} is the winner!`;
+        container.appendChild(winnerMessage);
+
+        const playAgainBtn = document.createElement("button");
+        playAgainBtn.type = "button";
+        playAgainBtn.id = "start-game-btn";
+        playAgainBtn.textContent = "Play Again";
+        playAgainBtn.addEventListener("click", ()=>{
+            document.getElementById("content").innerHTML = "";
+            player.gameBoard.newBoard();
+            this.openShipLayoutBoard(player.gameBoard.board);
+        })
+        container.appendChild(playAgainBtn);
+
+        main.appendChild(container);
+
     }
 
     shipSunkMessage(name, playerName){

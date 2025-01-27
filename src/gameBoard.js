@@ -23,6 +23,14 @@ export class GameBoard {
 
 
     newBoard(){
+        this.ships = [
+            new Ship("Destroyer", 2, 1),
+            new Ship("Submarine", 3, 2),
+            new Ship("Cruiser", 3, 3),
+            new Ship("BattleShip", 4, 4),
+            new Ship("Carrier", 5, 5)
+        ];
+        this.missedTiles = [];
         let board = [];
         for (let r=0; r < 10; r++){
             let row = [];
@@ -69,6 +77,13 @@ export class GameBoard {
             this.board[yCord][xCord] = "X";
             if (ship.sunken){
                 domHandler.shipSunkMessage(ship.name, this.owner);
+                if (this.ships.every(ship => ship.sunken == true)){
+                    if (gameController.currentTurn == "Computer"){
+                        domHandler.gameFinishedScreen("Computer");
+                    }
+                    return;
+                }
+
             } else {
                 domHandler.shipHitMessage(this.owner, true);
             }

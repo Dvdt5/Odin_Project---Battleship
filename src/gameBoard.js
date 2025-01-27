@@ -73,7 +73,7 @@ export class GameBoard {
                 domHandler.shipHitMessage(this.owner, true);
             }
             setTimeout(()=>{
-                gameController.turnPlay();
+                gameController.turnPlay(xCord, yCord);
                 domHandler.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
             }, 1000)
             

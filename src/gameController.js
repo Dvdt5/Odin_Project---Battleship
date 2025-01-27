@@ -40,16 +40,16 @@ export class GameController {
         }
         else {
             const attackSideRandomer = Math.floor(Math.random() * 4);
-            if ((attackSideRandomer == 0) && (player.gameBoard.board[yCord][xCord - 1] != "O" || player.gameBoard.board[yCord][xCord - 1] != "X")){
+            if ((xCord - 1 >= 0) && (attackSideRandomer == 0) && (player.gameBoard.board[yCord][xCord - 1] != "O" && player.gameBoard.board[yCord][xCord - 1] != "X")){
                 player.gameBoard.recieveAttack(xCord - 1,yCord);
             }
-            else if ((attackSideRandomer == 1) && (player.gameBoard.board[yCord][xCord + 1] != "O" || player.gameBoard.board[yCord][xCord + 1] != "X")){
+            else if ((xCord + 1 > 10) && (attackSideRandomer == 1) && (player.gameBoard.board[yCord][xCord + 1] != "O" && player.gameBoard.board[yCord][xCord + 1] != "X")){
                 player.gameBoard.recieveAttack(xCord + 1,yCord);
             }
-            else if ((attackSideRandomer == 2) && (player.gameBoard.board[yCord  + 1][xCord] != "O" || player.gameBoard.board[yCord  + 1][xCord] != "X")){
+            else if ((yCord + 1 < 10) && (attackSideRandomer == 2) && (player.gameBoard.board[yCord  + 1][xCord] != "O" && player.gameBoard.board[yCord  + 1][xCord] != "X")){
                 player.gameBoard.recieveAttack(xCord,yCord + 1);
             }
-            else if ((attackSideRandomer == 3) && (player.gameBoard.board[yCord  - 1][xCord] != "O" || player.gameBoard.board[yCord  - 1][xCord] != "X")){
+            else if ((yCord - 1 >= 0) && (attackSideRandomer == 3) && (player.gameBoard.board[yCord  - 1][xCord] != "O" && player.gameBoard.board[yCord  - 1][xCord] != "X")){
                 player.gameBoard.recieveAttack(xCord,yCord - 1);
             } else {
                 xCord = Math.floor(Math.random() * 10);

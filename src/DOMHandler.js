@@ -160,21 +160,13 @@ export class DOMHandler {
             for (let col = 0; col < 10; col++){
                 const boardCell = document.createElement("div");
                 boardCell.classList.add("cell");
-                boardCell.addEventListener("click", ()=> {
-                    if (gameController.currentTurn === "Player"){
-                        computer.gameBoard.recieveAttack(col,row);
-                        
-                        if (computer.gameBoard.ships.every(ship => ship.sunken == true)){
+                if (gameController.currentTurn === "Player"){
+                    boardCell.addEventListener("click", ()=> {
+                            computer.gameBoard.recieveAttack(col,row);
                             
-                            this.gameFinishedScreen("Player");
-                        }else {
-                            this.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
                         }
-                    } else {
-                        return;
-                    }
-                    }
-                );
+                    );
+                }
 
                 if (board[row][col] === 0){
                     boardCell.classList.add("undiscovered");
@@ -242,6 +234,9 @@ export class DOMHandler {
     }
 
     refreshBoards(playerBoard, computerBoard){
+        if (player.gameBoard.ships.every(ship => ship.sunken == true) || computer.gameBoard.ships.every(ship => ship.sunken == true)){
+            return;
+        }
         if (document.querySelector("#player-status-board")) {
             document.getElementById("player-status-board").remove();
         }

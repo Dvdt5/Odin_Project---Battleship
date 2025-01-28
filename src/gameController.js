@@ -12,10 +12,13 @@ export class GameController {
             this.currentTurn = "Computer";
             document.getElementById("player-side-text").style.borderLeft = "black 5px solid";
             document.getElementById("computer-side-text").style.borderLeft = "none";
+            document.getElementById("computer-side").style.pointerEvents = "none";
+
         } else {
             this.currentTurn = "Player";
             document.getElementById("computer-side-text").style.borderLeft = "black 5px solid";
             document.getElementById("player-side-text").style.borderLeft = "none";
+            document.getElementById("computer-side").style.pointerEvents = "all";
         }
         this.turnPlay();
     }

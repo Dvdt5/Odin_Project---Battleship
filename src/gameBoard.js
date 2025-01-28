@@ -70,6 +70,7 @@ export class GameBoard {
             this.missedTiles.push([xCord, yCord]);
             domHandler.shipHitMessage(this.owner, false);
             gameController.turnPass();
+            domHandler.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
         }
         else {
             const ship = this.findShipById(this.board[yCord][xCord]);
@@ -81,16 +82,24 @@ export class GameBoard {
                     if (gameController.currentTurn == "Computer"){
                         domHandler.gameFinishedScreen("Computer");
                     }
+                    else if (gameController.currentTurn == "Player"){   
+                        domHandler.gameFinishedScreen("Player");
+                    }
                     return;
                 }
 
             } else {
                 domHandler.shipHitMessage(this.owner, true);
             }
-            setTimeout(()=>{
-                gameController.turnPlay(xCord, yCord);
+            if (gameController.currentTurn == "Computer"){
+                setTimeout(()=>{
+                    gameController.turnPlay(xCord, yCord);
+                    domHandler.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
+                }, 1000)
+            }
+            else {
                 domHandler.refreshBoards(player.gameBoard.board, computer.gameBoard.board);
-            }, 1000)
+            }
             
         }
     }
